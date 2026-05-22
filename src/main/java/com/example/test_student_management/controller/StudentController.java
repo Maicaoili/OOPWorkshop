@@ -1,6 +1,8 @@
 package com.example.test_student_management.controller;
 
+import com.example.test_student_management.model.Course;
 import com.example.test_student_management.model.Student;
+import com.example.test_student_management.repository.CourseRepository;
 import com.example.test_student_management.repository.StudentRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -24,7 +27,7 @@ public class StudentController {
     @FXML private TextField studentNumberField;
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
-    @FXML private TextField courseField;
+    @FXML private ComboBox<Course> courseComboBox;
     @FXML private TextField yearLevelField;
     @FXML private TextField emailField;
     @FXML private TextField phoneField;
@@ -40,7 +43,9 @@ public class StudentController {
     @FXML private Pagination studentPagination;
 
     private final StudentRepository repository = new StudentRepository();
+    private final CourseRepository courseRepository = new CourseRepository();
     private final ObservableList<Student> students = FXCollections.observableArrayList();
+    private final ObservableList<Course> courses = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -53,6 +58,7 @@ public class StudentController {
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
         studentTable.setItems(students);
+        courseComboBox.setItems(courses);
         studentTable.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, selected) -> populateForm(selected));
         studentPagination.setPageFactory(this::createPage);
         studentPagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
@@ -62,6 +68,7 @@ public class StudentController {
                 showError("Database error", e.getMessage());
             }
         });
+        loadCourses();
         refreshPagination();
     }
 
@@ -145,7 +152,7 @@ public class StudentController {
         student.setStudentNumber(studentNumberField.getText().trim());
         student.setFirstName(firstNameField.getText().trim());
         student.setLastName(lastNameField.getText().trim());
-        student.setCourse(courseField.getText().trim());
+        student.setCourse(courseComboBox.getValue().getCourse());
         student.setYearLevel(Integer.parseInt(yearLevelField.getText().trim()));
         student.setEmail(emailField.getText().trim());
         student.setPhone(phoneField.getText().trim());
@@ -160,7 +167,7 @@ public class StudentController {
         if (studentNumberField.getText().trim().isEmpty()
                 || firstNameField.getText().trim().isEmpty()
                 || lastNameField.getText().trim().isEmpty()
-                || courseField.getText().trim().isEmpty()
+                || courseComboBox.getValue() == null
                 || yearLevelField.getText().trim().isEmpty()) {
             showError("Missing data", "Student number, name, course, and year level are required.");
             return false;
@@ -185,7 +192,11 @@ public class StudentController {
         studentNumberField.setText(student.getStudentNumber());
         firstNameField.setText(student.getFirstName());
         lastNameField.setText(student.getLastName());
-        courseField.setText(student.getCourse());
+        courseComboBox.setValue(null);
+        courseComboBox.getItems().stream()
+                .filter(course -> course.getCourse().equals(student.getCourse()))
+                .findFirst()
+                .ifPresent(courseComboBox::setValue);
         yearLevelField.setText(String.valueOf(student.getYearLevel()));
         emailField.setText(student.getEmail());
         phoneField.setText(student.getPhone());
@@ -196,11 +207,19 @@ public class StudentController {
         studentNumberField.clear();
         firstNameField.clear();
         lastNameField.clear();
-        courseField.clear();
+        courseComboBox.setValue(null);
         yearLevelField.clear();
         emailField.clear();
         phoneField.clear();
         studentTable.getSelectionModel().clearSelection();
+    }
+
+    private void loadCourses() {
+        try {
+            courses.setAll(courseRepository.findAll());
+        } catch (SQLException e) {
+            showError("Database error", e.getMessage());
+        }
     }
 
     private void showError(String title, String message) {

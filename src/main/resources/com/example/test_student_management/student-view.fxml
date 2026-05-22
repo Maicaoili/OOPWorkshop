@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
@@ -46,7 +47,7 @@
             <TextField fx:id="lastNameField" promptText="Dela Cruz" GridPane.rowIndex="1" GridPane.columnIndex="3" />
 
             <Label text="Course" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-            <TextField fx:id="courseField" promptText="BSIT" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+            <ComboBox fx:id="courseComboBox" promptText="Select course" GridPane.rowIndex="2" GridPane.columnIndex="1" />
             <Label text="Year Level" GridPane.rowIndex="2" GridPane.columnIndex="2" />
             <TextField fx:id="yearLevelField" promptText="1" GridPane.rowIndex="2" GridPane.columnIndex="3" />
 
