@@ -1,10 +1,10 @@
-module com.example.test_student_management {
+module com.example.inventory_system {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
     requires io.github.cdimascio.dotenv.java;
 
-    opens com.example.test_student_management.controller to javafx.fxml;
-    opens com.example.test_student_management.model to javafx.base;
-    exports com.example.test_student_management.app;
+    opens com.example.inventory_system.controller to javafx.fxml;
+    opens com.example.inventory_system.model to javafx.base;
+    exports com.example.inventory_system;
 }

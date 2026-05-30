@@ -7,16 +7,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="14.0" alignment="CENTER" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test_student_management.controller.SignUpController">
+<VBox spacing="14.0" alignment="CENTER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.inventory_system.controller.LoginController">
     <padding>
         <Insets top="24" right="24" bottom="24" left="24" />
     </padding>
     <children>
-        <Label text="Sign Up" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+        <Label text="Inventory System" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+        <Label text="Sign in to continue" style="-fx-font-size: 13px; -fx-text-fill: #666;" />
         <TextField fx:id="usernameField" promptText="Username" maxWidth="260" />
         <PasswordField fx:id="passwordField" promptText="Password" maxWidth="260" />
-        <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" maxWidth="260" />
-        <Button text="Create Account" onAction="#handleCreateAccount" maxWidth="260" />
-        <Button text="Back to Login" onAction="#handleBackToLogin" maxWidth="260" />
+        <Label fx:id="errorLabel" text="" style="-fx-text-fill: red;" wrapText="true" maxWidth="260" />
+        <Button text="Login" onAction="#handleLogin" maxWidth="260" />
     </children>
 </VBox>

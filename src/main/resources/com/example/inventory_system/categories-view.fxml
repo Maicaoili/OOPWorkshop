@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="16.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.inventory_system.controller.CategoriesController">
+    <padding>
+        <Insets top="18" right="18" bottom="18" left="18" />
+    </padding>
+    <children>
+        <Button text="← Back to Dashboard" onAction="#handleDashboardReturn" style="-fx-background-color: transparent; -fx-text-fill: #2980b9; -fx-cursor: hand; -fx-padding: 0 0 10 0;" />
+        <Label text="Categories Management" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <children>
+                <Button text="Refresh" onAction="#handleRefresh" />
+                <HBox HBox.hgrow="ALWAYS" />
+                <Button text="Add Category" onAction="#handleAdd" style="-fx-background-color: #27ae60; -fx-text-fill: white;" />
+                <Button text="Edit Selected" onAction="#handleEdit" style="-fx-background-color: #f39c12; -fx-text-fill: white;" />
+                <Button text="Delete Selected" onAction="#handleDelete" style="-fx-background-color: #c0392b; -fx-text-fill: white;" />
+            </children>
+        </HBox>
+
+        <TableView fx:id="categoriesTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="50" />
+                <TableColumn fx:id="nameColumn" text="Name" prefWidth="200" />
+                <TableColumn fx:id="descColumn" text="Description" prefWidth="400" />
+                <TableColumn fx:id="countColumn" text="Item Count" prefWidth="100" />
+            </columns>
+        </TableView>
+
+        <!-- Inline Form for Add/Edit -->
+        <VBox fx:id="formPanel" spacing="12" style="-fx-border-color: #bdc3c7; -fx-border-radius: 4; -fx-padding: 16;" managed="false" visible="false">
+            <Label fx:id="formTitle" text="Add Category" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+            <VBox spacing="4"><Label text="Name" /><TextField fx:id="formName" maxWidth="300" /></VBox>
+            <VBox spacing="4"><Label text="Description" /><TextArea fx:id="formDesc" prefRowCount="3" maxWidth="500" /></VBox>
+            <HBox spacing="8">
+                <Button text="Save" onAction="#handleSave" style="-fx-background-color: #2980b9; -fx-text-fill: white;" />
+                <Button text="Cancel" onAction="#handleCancel" />
+            </HBox>
+        </VBox>
+    </children>
+</VBox>

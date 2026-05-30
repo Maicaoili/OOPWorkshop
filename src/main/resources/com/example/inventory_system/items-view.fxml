@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="16.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.inventory_system.controller.ItemsController">
+    <padding>
+        <Insets top="18" right="18" bottom="18" left="18" />
+    </padding>
+    <children>
+        <Button text="← Back to Dashboard" onAction="#handleDashboardReturn" style="-fx-background-color: transparent; -fx-text-fill: #2980b9; -fx-cursor: hand; -fx-padding: 0 0 10 0;" />
+        <Label text="Items Inventory" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <children>
+                <TextField fx:id="searchField" promptText="Search by Name or SKU..." prefWidth="250" />
+                <Button text="Search" onAction="#handleSearch" />
+                <Button text="Refresh" onAction="#handleRefresh" />
+                <HBox HBox.hgrow="ALWAYS" />
+                <Button text="Add New Item" onAction="#handleAdd" style="-fx-background-color: #27ae60; -fx-text-fill: white;" />
+                <Button text="Edit Selected" onAction="#handleEdit" style="-fx-background-color: #f39c12; -fx-text-fill: white;" />
+                <Button text="Delete Selected" onAction="#handleDelete" style="-fx-background-color: #c0392b; -fx-text-fill: white;" />
+            </children>
+        </HBox>
+
+        <TableView fx:id="itemsTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="50" />
+                <TableColumn fx:id="skuColumn" text="SKU" prefWidth="100" />
+                <TableColumn fx:id="nameColumn" text="Name" prefWidth="200" />
+                <TableColumn fx:id="categoryColumn" text="Category" prefWidth="120" />
+                <TableColumn fx:id="supplierColumn" text="Supplier" prefWidth="150" />
+                <TableColumn fx:id="quantityColumn" text="Quantity" prefWidth="80" />
+                <TableColumn fx:id="priceColumn" text="Unit Price" prefWidth="100" />
+                <TableColumn fx:id="createdColumn" text="Created At" prefWidth="150" />
+            </columns>
+        </TableView>
+        
+        <!-- Inline Form for Add/Edit -->
+        <VBox fx:id="formPanel" spacing="12" style="-fx-border-color: #bdc3c7; -fx-border-radius: 4; -fx-padding: 16;" managed="false" visible="false">
+            <Label fx:id="formTitle" text="Add Item" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+            <HBox spacing="12">
+                <VBox spacing="4"><Label text="SKU" /><TextField fx:id="formSku" /></VBox>
+                <VBox spacing="4" HBox.hgrow="ALWAYS"><Label text="Name" /><TextField fx:id="formName" /></VBox>
+                <VBox spacing="4"><Label text="Category" /><ComboBox fx:id="formCategory" prefWidth="150" /></VBox>
+                <VBox spacing="4"><Label text="Supplier" /><ComboBox fx:id="formSupplier" prefWidth="150" /></VBox>
+            </HBox>
+            <HBox spacing="12">
+                <VBox spacing="4"><Label text="Quantity" /><TextField fx:id="formQuantity" prefWidth="100" /></VBox>
+                <VBox spacing="4"><Label text="Unit Price" /><TextField fx:id="formPrice" prefWidth="100" /></VBox>
+            </HBox>
+            <HBox spacing="8">
+                <Button text="Save" onAction="#handleSave" style="-fx-background-color: #2980b9; -fx-text-fill: white;" />
+                <Button text="Cancel" onAction="#handleCancel" />
+            </HBox>
+        </VBox>
+    </children>
+</VBox>
